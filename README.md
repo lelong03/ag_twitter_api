@@ -47,7 +47,7 @@ pip install -r requirements.txt
 
 Run API services by command:
 ```
-python manage.py runserver 127.0.0.1:8000 --settings=twitter_api.settings
+python manage.py runserver 127.0.0.1:8000 --settings=twitter_api.settings --insecure
 ```
 
 
