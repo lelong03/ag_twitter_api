@@ -53,6 +53,7 @@ python manage.py runserver 127.0.0.1:8000 --settings=twitter_api.settings
 
 Endpoints:
 
+
 http://127.0.0.1:8000/hashtags/<hashtag_string>?pages_limit=<number_of_items>
 
 | Param        | Description           |
@@ -65,8 +66,11 @@ http://127.0.0.1:8000/user/<user_screen_name>?pages_limit=<number_of_items>
 
 | Param        | Description           |
 | ------------- |-------------|
-|   user_screen_name      | screen name of user whom you would like to search tweets belong to          |
+|   user_screen_name    | screen name of user whom you would like to search tweets belong to          |
 |   number_of_items     | number of tweets that to retrieve           |
+
+
+**Note:** user screen name is different from the full name of user. This is the unique string that stays under the full name and starts with "@" in user profile page.
 
 
 ### Document
