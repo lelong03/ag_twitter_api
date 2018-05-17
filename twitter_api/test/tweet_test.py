@@ -1,24 +1,34 @@
-from django.urls import reverse
+import unittest
+import requests
 from rest_framework import status
-from rest_framework.test import APITestCase
+
+HOST = "http://127.0.0.1:8000/"
+
+def get_api(url, param=None): return requests.get(HOST + url, param)
+def post_api(url, param=None): return requests.post(HOST + url, param)
+
+class HashtagsTweetTest(unittest.TestCase):
+    URL_STR = "hashtags/googleio2018"
+
+    def test_connection(self):
+        rep = get_api(self.URL_STR)
+        self.assertEqual(rep.status_code, status.HTTP_200_OK)
+
+    def test_type(self):
+        rep = get_api(self.URL_STR)
+        data = rep.json()
+        self.assertEqual(type(data), list)
+
+    def test_number_of(self):
+        number = 3
+        rep = get_api("%s?pages_limit=%s" % (self.URL_STR, number))
+        data = rep.json()
+        self.assertEqual(len(data), number)
 
 
-class GetTweetTests(APITestCase):
-    def test_get_tweet_by_hash_tags(self):
-        """
-        Ensure we can get tweet by hash tags.
-        """
-        url = reverse('hash_tags_tweet-list', kwargs={'tag': 'googleio2018'}),
-        response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data), 20)
+class UserTweetTest(HashtagsTweetTest):
+    URL_STR = "user/BaoLong_LeLong"
 
-    def test_get_tweet_by_screen_name(self):
-        """
-        Ensure we can get tweet by user screen_name.
-        """
-        url = reverse('user_tweet-list', kwargs={'screen_name': 'BaoLong_LeLong'}),
-        response = self.client.get(url, format='json')
-        self.assertEqual(response.status_code, status.HTTP_200_OK)
-        self.assertEqual(len(response.data) > 0, True)
 
+if __name__ == '__main__':
+    unittest.main()
