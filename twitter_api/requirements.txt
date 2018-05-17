@@ -1,0 +1,5 @@
+Django
+djangorestframework
+tweepy
+coreapi
+markdown
